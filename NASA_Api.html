@@ -1,0 +1,56 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="styling.css" rel="stylesheet">
+
+  <title> N.A.S.A API </title>
+</head>
+
+<body>
+
+  <div id="output">
+
+    <span id="image" class="img-fluid mx-auto d-block rounded-circle">
+    </span>
+    <h1 id="title"></h1>
+    <p id="copyright"></p>
+    <p id="explanation"></P>
+
+
+
+    <script>
+      $.ajax({
+        url: "https://api.nasa.gov/planetary/apod?api_key=14zntJEAxEGOTQhTpgMbaNe4XTtSsYWjRRh8LFp2",
+        success: function(whatyougot) {
+          document.getElementById("image").innerHTML = "<img src=" +
+            whatyougot.url + ">";
+
+
+          //Ternary operator -> only show copyright if the data is not undefined
+          let copy = typeof whatyougot.copyright != 'undefined' ? "By: " + whatyougot.copyright : '';
+
+          document.getElementById("copyright").innerHTML = copy;
+
+          document.getElementById("title").innerHTML = whatyougot.title;
+
+          document.getElementById("explanation").innerHTML = whatyougot.explanation;
+
+        }
+      });
+    </script>
+    <div class="footer">
+      <p>Developed by Odero &copy;</p>
+    </div>
+
+</body>
+
+</html>

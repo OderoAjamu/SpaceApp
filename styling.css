@@ -1,0 +1,47 @@
+
+html {
+    /*font-family: 'Inter', sans-serif;*/
+    font-family: "playfair Display";
+    background-color: black;
+}
+
+#output{
+  /* height: 400px; */
+  background-color: black;
+  margin-top: 10px;
+  //overflow: hidden;
+  color: white;
+}
+ .img-fluid{
+height: 100px;
+width: 100%;
+object-fit: contain;
+//height: 300px;
+
+}
+#title{
+  text-align: center;
+
+}
+#copyright{
+  text-align: center;
+}
+#explanation{
+    padding: 15px 15px;
+    font-size: 17px;
+}
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(178, 178, 178, 0.2);
+  content-align: bottom;
+}
+#p{
+  color: grey;
+  font-size: 12px;
+
+
+}
