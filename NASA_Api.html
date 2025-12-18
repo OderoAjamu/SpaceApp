@@ -1,10 +1,10 @@
-<!Doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NASA APOD</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -16,41 +16,56 @@
 </head>
 
 <body>
-
   <div id="output">
-
-    <span id="image" class="img-fluid mx-auto d-block rounded-circle">
-    </span>
+    <img id="image" alt="NASA APOD" />
+    <iframe id="video" allowfullscreen></iframe>
+    
+    <div class = "content">
     <h1 id="title"></h1>
     <p id="copyright"></p>
-    <p id="explanation"></P>
+    <p id="explanation"></p>
+    
+  </div>
+  <div class="footer">
+    <p>Developed by Odero &copy;</p>
+  </div>
+  
+  </div>
 
+ 
 
+  <script>
+    $.ajax({
+      url: "https://api.nasa.gov/planetary/apod?api_key=14zntJEAxEGOTQhTpgMbaNe4XTtSsYWjRRh8LFp2",
+      success: function (d) {
+        const img = document.getElementById("image");
+        const vid = document.getElementById("video");
 
-    <script>
-      $.ajax({
-        url: "https://api.nasa.gov/planetary/apod?api_key=14zntJEAxEGOTQhTpgMbaNe4XTtSsYWjRRh8LFp2",
-        success: function(whatyougot) {
-          document.getElementById("image").innerHTML = "<img src=" +
-            whatyougot.url + ">";
+        document.getElementById("title").textContent = d.title || "";
+        document.getElementById("explanation").textContent = d.explanation || "";
+        document.getElementById("copyright").textContent =
+          d.copyright ? "By: " + d.copyright : "";
 
-
-          //Ternary operator -> only show copyright if the data is not undefined
-          let copy = typeof whatyougot.copyright != 'undefined' ? "By: " + whatyougot.copyright : '';
-
-          document.getElementById("copyright").innerHTML = copy;
-
-          document.getElementById("title").innerHTML = whatyougot.title;
-
-          document.getElementById("explanation").innerHTML = whatyougot.explanation;
-
+        if (d.media_type === "image") {
+          vid.style.display = "none";
+          vid.src = "";
+          img.style.display = "block";
+          img.src = d.url;
+        } else {
+          img.style.display = "none";
+          img.src = "";
+          vid.style.display = "block";
+          vid.src = d.url;
         }
-      });
-    </script>
-    <div class="footer">
-      <p>Developed by Odero &copy;</p>
-    </div>
+      },
+      error: function (xhr) {
+        console.log("APOD error", xhr.status, xhr.responseText);
+      }
+    });
+  </script>
+
 
 </body>
+
 
 </html>
